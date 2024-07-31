@@ -3,7 +3,7 @@ import { FaEdit } from 'react-icons/fa';
 import { useForm } from '../hooks/useForm';
 import PropTypes from 'prop-types';
 
-function ActualizarTarea ({ todo, updateTodo }) {
+export const TodoUpdate = ({ todo, updateTodo }) => {
 	const { updateDescription, onInputChange } = useForm({
 		updateDescription: todo.description,
 	});
@@ -13,14 +13,11 @@ function ActualizarTarea ({ todo, updateTodo }) {
 
 	const onSubmitUpdate = e => {
 		e.preventDefault();
-
 		const id = todo.id;
 		const description = updateDescription;
 
 		updateTodo(id, description);
-
 		setDisabled(!disabled);
-
 		focusInputRef.current.focus();
 	};
 
@@ -28,27 +25,29 @@ function ActualizarTarea ({ todo, updateTodo }) {
 		<form onSubmit={onSubmitUpdate}>
 			<input
 				type='text'
-				className={`input-update ${
-					todo.done ? 'text-decoration-dashed' : ''
-				}`}
+				className={`input-update ${todo.done ? 'text-decoration-dashed' : ''}`}
 				name='updateDescription'
 				value={updateDescription}
 				onChange={onInputChange}
-				placeholder='Añadir tarea'
+				placeholder='¿Qué hay que hacer?'
 				readOnly={disabled}
 				ref={focusInputRef}
 			/>
-
 			<button className='btn-edit' type='submit'>
 				<FaEdit />
 			</button>
 		</form>
 	);
-}
-
-ActualizarTarea.propTypes = {
-	todo: PropTypes.func.isRequired,
-    updateTodo: PropTypes.func.isRequired
 };
 
-export default ActualizarTarea;
+TodoUpdate.propTypes = {
+	todo: PropTypes.shape({
+		id: PropTypes.number.isRequired,
+		description: PropTypes.string.isRequired,
+		done: PropTypes.bool.isRequired,
+	}).isRequired,
+	updateTodo: PropTypes.func.isRequired,
+};
+
+export default TodoUpdate;
+

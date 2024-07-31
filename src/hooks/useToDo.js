@@ -1,34 +1,27 @@
 import { useEffect, useReducer } from 'react';
-import { todoReducer } from '../todoreducer';
+import { todoReducer } from '../todoReducer';
 
-export const useTodo = () => {
+export const useToDo = () => {
 	const initialState = [];
 
-    const init = () => {
-        return JSON.parse(localStorage.getItem('todos')) || []
-    }
+	const init = () => {
+		return JSON.parse(localStorage.getItem('todos')) || [];
+	};
 
-	const [todos, dispatch] = useReducer(
-		todoReducer,
-		initialState,
-		init
-	);
+	const [todos, dispatch] = useReducer(todoReducer, initialState, init);
 
-    const todosCount = todos.length
-    const pendingTodosCount = todos.filter(todo => !todo.done).length
+	const todosCount = todos.length;
+	const pendingTodosCount = todos.filter(todo => !todo.done).length;
 
-
-    useEffect(() => {
-        localStorage.setItem('todos', JSON.stringify(todos))
-    }, [todos])
-
+	useEffect(() => {
+		localStorage.setItem('todos', JSON.stringify(todos));
+	}, [todos]);
 
 	const newTodo = todo => {
 		const action = {
 			type: 'Add Todo',
 			payload: todo,
 		};
-
 		dispatch(action);
 	};
 
@@ -37,7 +30,6 @@ export const useTodo = () => {
 			type: 'Delete Todo',
 			payload: id,
 		};
-
 		dispatch(action);
 	};
 
@@ -46,29 +38,26 @@ export const useTodo = () => {
 			type: 'Complete Todo',
 			payload: id,
 		};
-
 		dispatch(action);
 	};
 
 	const updateTodo = (id, description) => {
 		const action = {
 			type: 'Update Todo',
-			payload: {
-				id,
-				description,
-			},
+			payload: { id, description },
 		};
-
 		dispatch(action);
 	};
 
-    return{
-        todos,
-        todosCount,
-        pendingTodosCount,
-        newTodo,
-        deleteTodo,
-        doneTodo,
-        updateTodo
-    }
+	return {
+		todos,
+		todosCount,
+		pendingTodosCount,
+		newTodo,
+		deleteTodo,
+		doneTodo,
+		updateTodo,
+	};
 };
+
+export default useToDo;
