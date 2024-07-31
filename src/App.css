@@ -43,6 +43,7 @@ h1 {
 
 .counter-todos h3 {
 	font-weight: 500;
+	color: rgb(125, 9, 125);
 }
 
 .counter-todos span {
