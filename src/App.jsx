@@ -17,7 +17,7 @@ function App() {
     return (
       <>
         <div className='card-to-do'>
-          <h1>Lista de tareas</h1>
+          <h1>To-Do List</h1>
           <div className='counter-todos'>
             <h3>
               N° Tareas: <span>{todosCount}</span>
@@ -28,16 +28,18 @@ function App() {
           </div>
   
           <div className='add-todo'>
-            <h3>Agregar Tarea</h3>
+            <h3>Nueva Tarea</h3>
             <RegistrarTarea newTodo={newTodo} />
           </div>
-  
-          <Lista
-            todos={todos}
-            updateTodo={updateTodo}
-            deleteTodo={deleteTodo}
-            doneTodo={doneTodo}
-          />
+          <div className='add-todo'>
+            <h3>Todas</h3>
+            <Lista
+              todos={todos}
+              updateTodo={updateTodo}
+              deleteTodo={deleteTodo}
+              doneTodo={doneTodo}
+            />
+          </div>
         </div>
       </>
     );
